@@ -9,6 +9,11 @@
 
         Http.onreadystatechange = (e) => {
             console.log(Http.responseText)
+            if (Http.responseText == undefined) {
+                console.log("Its undefined")
+            } else if (Http.responseText == "") {
+                console.log("Empty String")
+            }
             if (zje == "") {
                 zje = JSON.parse(Http.responseText)
             }
