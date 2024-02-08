@@ -1,0 +1,15 @@
+{
+  "name": "theantidodoproject",
+  "version": "1.0.0",
+  "description": "A app to avoid dodo (birds) from fucking your day up",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "author": "Stoppedwumm",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2"
+  }
+}
