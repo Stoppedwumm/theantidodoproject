@@ -8,6 +8,7 @@ const app = express()
 const password = process.env["PASSWORDID"]
 var cookies = require("cookie-parser")
 const { kv } = require("@vercel/kv")
+const { json } = require("body-parser")
 
 app.use(cookies())
 
@@ -42,7 +43,18 @@ app.get("/therealantidodo", (req, res) => {
 
 app.get("/api/data", (req,res) => {
     latestdata = kv.get("latestdata")
-    console.log("latestdata")
+    res.send(latestdata)
+})
+
+app.get("/api/contribute", (req,res) => {
+    latestdata = kv.get("latestdata")
+    bigjson = JSON.parse(latestdata)
+    const fach = req.query["fach"]
+    const notiz = req.query["aufgabe"]
+    var id = Math.floor(100000 + Math.random() * 900000)
+    bigjson[id] = {"notitz": notiz, "fach": fach}
+    latestdata = JSON.stringify(bigjson)
+    kv.set("latestdata")
     res.send(latestdata)
 })
 
