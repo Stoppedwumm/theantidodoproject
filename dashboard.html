@@ -1,19 +1,27 @@
 <body>
     <script>
-        const Http = new XMLHttpRequest();
-        const url='https://theantidodoproject.vercel.app/api/data';
-        Http.open("GET", url);
-        Http.send();
+        function API(url) {
+            const Http = new XMLHttpRequest();
+            Http.open("GET", url);
+            Http.send();
 
-        let alreadysent = false
+            let alreadysent = false
+            let value = ""
 
-        Http.onreadystatechange = (e) => {
-            if (Http.responseText == "") {
+            Http.onreadystatechange = (e) => {
+                if (Http.responseText == "") {
                 
-            } else if (alreadysent == false) {
-                console.log(JSON.parse(Http.responseText))
-                alreadysent = true
+                } else if (alreadysent == false) {
+                    console.log(JSON.parse(Http.responseText))
+                    value = JSON.parse(Http.responseText)
+                }
             }
+            while (true) {
+                if (value != "") {
+                    return value
+                }
+            }
+
         }
     </script>
 </body>
