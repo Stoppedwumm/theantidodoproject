@@ -5,7 +5,7 @@
         Http.open("GET", url);
         Http.send();
 
-        console.log(JSON.parse(Http.responseText))
+        console.log(Http.responseText)
 
         Http.onreadystatechange = (e) => {
             console.log(JSON.parse(Http.responseText))
