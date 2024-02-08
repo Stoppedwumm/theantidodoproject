@@ -8,7 +8,9 @@
         Http.onreadystatechange = (e) => {
             console.log(Http.responseText)
             if (Http.responseText == "") {
-                zje = JSON.parse(Http.responseText)
+                
+            } else {
+                console.log(JSON.parse(Http.responseText))
             }
         }
     </script>
