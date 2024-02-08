@@ -1,6 +1,15 @@
 <body>
     <script>
-        function API(url) {
+        function until(conditionFunction) {
+
+            const poll = resolve => {
+            if(conditionFunction()) resolve();
+            else setTimeout(_ => poll(resolve), 400);
+        }
+
+return new Promise(poll);
+}
+        async function API(url) {
             const Http = new XMLHttpRequest();
             Http.open("GET", url);
             Http.send();
@@ -12,18 +21,17 @@
                 if (Http.responseText == "") {
                 
                 } else if (alreadysent == false) {
-                    console.log(JSON.parse(Http.responseText))
+                    alreadysent = true
                     value = JSON.parse(Http.responseText)
                 }
             }
-            while (true) {
-                if (alreadysent == true) {
-                    return value
-                    break
-                }
-            }
 
+            await until(_ => alreadysent == true);
+            console.log("Promise fulfilled")
+            console.log(value)
+            return value
+            
         }
-        API("https://theantidodoproject.vercel.app/api/data")
+        console.log(API("https://theantidodoproject.vercel.app/api/data"))
     </script>
 </body>
