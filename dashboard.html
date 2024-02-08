@@ -5,10 +5,12 @@
         Http.open("GET", url);
         Http.send();
 
-        console.log(Http.responseText)
+        zje = ""
 
         Http.onreadystatechange = (e) => {
-            console.log(JSON.parse(Http.responseText))
+            if (zje == "") {
+                zje = JSON.parse(Http.responseText)
+            }
         }
     </script>
 </body>
