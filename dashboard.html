@@ -8,6 +8,7 @@
         zje = ""
 
         Http.onreadystatechange = (e) => {
+            console.log(Http.responseText)
             if (zje == "") {
                 zje = JSON.parse(Http.responseText)
             }
