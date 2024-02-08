@@ -1,37 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .dashboard {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
 <body>
-    <script>
-        function until(conditionFunction) {
 
-            const poll = resolve => {
-            if(conditionFunction()) resolve();
-            else setTimeout(_ => poll(resolve), 400);
-        }
+<div class="dashboard">
+    <h1>Data Dashboard</h1>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
 
-return new Promise(poll);
-}
-        async function API(url) {
-            const Http = new XMLHttpRequest();
-            Http.open("GET", url);
-            Http.send();
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Fetch data from the API endpoint
+        $.getJSON('/api/data', function(data) {
+            // Iterate through the data and append rows to the table
+            $.each(data, function(index, item) {
+                $('#data-table tbody').append(
+                    '<tr>' +
+                        '<td>' + item.id + '</td>' +
+                        '<td>' + item.name + '</td>' +
+                        '<td>' + item.value + '</td>' +
+                    '</tr>'
+                );
+            });
+        });
+    });
+</script>
 
-            let alreadysent = false
-            let value = ""
-
-            Http.onreadystatechange = (e) => {
-                if (Http.responseText == "") {
-                
-                } else if (alreadysent == false) {
-                    alreadysent = true
-                    value = JSON.parse(Http.responseText)
-                }
-            }
-
-            await until(_ => alreadysent == true);
-            console.log("Promise fulfilled")
-            console.log(value)
-            return value
-            
-        }
-        console.log(API("https://theantidodoproject.vercel.app/api/data"))
-    </script>
 </body>
+</html>

@@ -48,14 +48,23 @@ app.get("/api/data", (req,res) => {
 
 app.get("/api/contribute", (req,res) => {
     latestdata = kv.get("latestdata")
+    console.log("Downloaded latest data")
     bigjson = JSON.parse(latestdata)
+    console.log("Parsing complete")
     const fach = req.query["fach"]
     const notiz = req.query["aufgabe"]
     var id = Math.floor(100000 + Math.random() * 900000)
-    bigjson[id] = {"notitz": notiz, "fach": fach}
+    bigjson[id] = {"aufgabe": notiz, "fach": fach}
+    console.log("Erstellung des neuen Tables erfolgreich")
     latestdata = JSON.stringify(bigjson)
+    console.log("ToString erfolgreich")
     kv.set("latestdata")
+    console.log("Works")
     res.send(latestdata)
+})
+
+app.get("/src/js", (req,res) => {
+    res.sendFile(__dirname + "/dashboardfunctions.js")
 })
 
 app.listen(3000, () => {
