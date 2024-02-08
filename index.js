@@ -1,11 +1,13 @@
 const express = require("express")
 console.log(process.env["PASSWORDID"])
 if (process.env["PASSWORDID"] == undefined) {
-    require('dotenv').config()
+    require('dotenv').config({path:".env"})
+    require('dotenv').config({path:".env.development.local"})
 } 
 const app = express()
 const password = process.env["PASSWORDID"]
 var cookies = require("cookie-parser")
+const { kv } = require("@vercel/kv")
 
 app.use(cookies())
 
@@ -39,7 +41,9 @@ app.get("/therealantidodo", (req, res) => {
 })
 
 app.get("/api/data", (req,res) => {
-    res.send('{"foo":"bar"}')
+    latestdata = kv.get("latestdata")
+    console.log("latestdata")
+    res.send(latestdata)
 })
 
 app.listen(3000, () => {
