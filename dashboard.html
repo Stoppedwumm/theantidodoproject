@@ -5,12 +5,15 @@
         Http.open("GET", url);
         Http.send();
 
+        let alreadysent = false
+
         Http.onreadystatechange = (e) => {
             console.log(Http.responseText)
             if (Http.responseText == "") {
                 
-            } else {
+            } else if (alreadysent == false) {
                 console.log(JSON.parse(Http.responseText))
+                alreadysent = true
             }
         }
     </script>
