@@ -38,6 +38,10 @@ app.get("/therealantidodo", (req, res) => {
     }
 })
 
+app.get("/api/data", (req,res) => {
+    res.send("{'foo':'bar'}")
+})
+
 app.listen(3000, () => {
     console.log("ONLINE")
 })
